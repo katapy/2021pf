@@ -14,7 +14,6 @@ case "$DATA" in
 esac
 
 git init
-# git branch -a
 git add .
 read -p "Input comment > " COMMENT
 git commit -m "$COMMENT"
