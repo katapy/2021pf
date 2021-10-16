@@ -13,4 +13,4 @@ read -p "Input comment > " COMMENT
 git commit -m "$COMMENT"
 # git push -f --set-upstream $URL main
 
-git push $URL develop
+git push $URL HEAD:develop
