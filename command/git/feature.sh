@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# リモートからコードをpullし
+# ランダムな4桁の番号のブランチを作成します
+
 # rootフォルダまで移動
 cd ../..
 
@@ -16,6 +19,7 @@ fi
 git pull origin develop
 
 NUMBER=$(($RANDOM % 10000))
+USERNAME=`git config user.name`
 echo "make ticket: " $NUMBER
 
-git checkout -b "feature-$NUMBER"
+git checkout -b "feature-$USERNAME-$NUMBER"
