@@ -1,0 +1,13 @@
+asyncpg
+bcrypt
+crud
+databases
+fastapi==0.68.1
+gunicorn
+passlib
+psycopg2
+pydantic
+sqlalchemy
+starlette
+uvicorn
+websockets

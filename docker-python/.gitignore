@@ -1,0 +1,9 @@
+
+# logフォルダの除外
+log/
+
+# DBフォルダの除外
+postgres/
+
+# Python 固有のフォルダの除外
+__pycache__/
