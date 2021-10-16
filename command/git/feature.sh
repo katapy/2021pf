@@ -13,7 +13,7 @@ if [ `test "$ORIGIN" != "origin" ; echo $?` -eq 0 ]; then
     git remote add origin $URL
 fi
 
-git pull origin main
+git pull origin develop
 
 NUMBER=$(($RANDOM % 10000))
 echo "make ticket: " $NUMBER

@@ -14,8 +14,11 @@ case "$DATA" in
 esac
 
 git init
-git branch -a
+# git branch -a
 git add .
 read -p "Input comment > " COMMENT
 git commit -m "$COMMENT"
 git push $URL HEAD:$BRANCH
+
+echo "Complete to push"
+echo "Your branch is " $BRANCH
