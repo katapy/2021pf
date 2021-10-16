@@ -6,6 +6,8 @@
 # hostname -I
 HOSTNAME=192.168.1.10
 
+cd \
+
 # クライアントPCで鍵を作る
 ssh-keygen -t rsa -b 4096
 
