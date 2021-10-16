@@ -1,0 +1,32 @@
+version: "3.0"
+
+services:
+  # FastAPI
+  api:
+    container_name: "api"
+    build: .
+    depends_on:
+      - postgresql
+    restart: always
+    tty: true
+    ports:
+      - 8000:8000
+
+  # postgreSQL
+  postgresql:
+    image: postgres:13.2
+    container_name: postgresql
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+      - ./postgres/init:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_SERVER: db
+      POSTGRES_DB: testdb
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    hostname: postgres
+    restart: always
+    user: root
