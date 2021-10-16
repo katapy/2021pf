@@ -15,4 +15,7 @@ fi
 
 git pull origin main
 
-echo $(($RANDOM % 10000))
+NUMBER=$(($RANDOM % 10000))
+echo "make ticket: " $NUMBER
+
+git checkout -b "feature-$NUMBER"
