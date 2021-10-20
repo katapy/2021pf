@@ -13,7 +13,7 @@ KEYPUB="./mac/authorized_keys"
 
 # 古いフォルダの削除
 echo "delete old file."
-ssh katapy@$HOSTNAME "cd mac;rm -rf *;"
+ssh katapy@$HOSTNAME "chmod -R 755 ~/mac; cd mac; rm -rf *;"
 
 # ファイル転送
 echo "send file."
