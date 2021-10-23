@@ -81,8 +81,9 @@ namespace ConnectServer
                 GameObject.Destroy(btn.gameObject);
             }
 
-            foreach(var room in getRoomListController.chatRooms)
+            foreach(var room in getRoomListController.ChatRooms)
             {
+                Debug.Log(room.room_name);
                 var clone = GameObject.Instantiate(sampleButton, sampleButton.transform.parent);
                 clone.GetComponentInChildren<Text>().text = room.room_name;
                 clone.gameObject.SetActive(true);
