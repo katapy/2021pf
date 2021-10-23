@@ -8,7 +8,7 @@ namespace ConnectServer
 {
     public class ChatRoomListController : BaseController
     {
-        public List<ChatRoom> chatRooms{get; private set;}
+        public List<ChatRoom> ChatRooms{get; private set;}
 
         // Start is called before the first frame update
         void Start()
@@ -26,12 +26,12 @@ namespace ConnectServer
         {
             ErrMsg = string.Empty;
             yield return StartCoroutine(Post(route, user));
-            chatRooms = new List<ChatRoom>();
+            ChatRooms = new List<ChatRoom>();
 
             switch((int)statusCode)
             {
                 case 200:
-                    chatRooms = JsonConvert.DeserializeObject<List<ChatRoom>>(Result);
+                    ChatRooms = JsonConvert.DeserializeObject<List<ChatRoom>>(Result);
                     break;
                 case 400:
                 case 401:
@@ -46,14 +46,6 @@ namespace ConnectServer
                     ErrMsg = "Unexpected Error";
                     break;
             }
-
-            /*
-            var roomList = JsonConvert.DeserializeObject<List<ChatRoom>>(Result);
-            foreach(var room in roomList)
-            {
-                Debug.Log(room.room_name);
-            }
-            */
         }
     }
 }
