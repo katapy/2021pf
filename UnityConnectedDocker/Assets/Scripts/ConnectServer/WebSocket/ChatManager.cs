@@ -41,6 +41,10 @@ namespace ConnectServer
             
         }
 
+        /// <summary>
+        /// Join chat room
+        /// </summary>
+        /// <param name="chatRoomTable">Chat room</param>
         public void JoinRoom(ChatRoomTable chatRoomTable)
         {
             if(isConnect)
@@ -51,7 +55,7 @@ namespace ConnectServer
             this.chatRoomTable = chatRoomTable;
 
             // 接続先のURLとポート番号を指定する
-            ws = new WebSocketSharp.WebSocket($"ws://localhost:8000/chat/join/{chatRoomTable.ChatRoom.room_id}");
+            ws = new WebSocketSharp.WebSocket($"{Config.Config.WS}/chat/join/{chatRoomTable.ChatRoom.room_id}");
 
             // WebSocketの接続を開始した時に実行されるイベント
             ws.OnOpen += (sender, e) => OnOpen();
