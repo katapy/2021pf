@@ -17,6 +17,8 @@ Main api class.
 # テーブル一覧
 # \dt;
 
+import uvicorn
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.requests import Request
@@ -72,3 +74,14 @@ async def db_session_middleware(request: Request, call_next):
     request.state.connection = database
     response = await call_next(request)
     return response
+
+if __name__ == "__main__":
+    is_debug = True
+    if is_debug:
+        import debugpy
+        debugpy.listen(("0.0.0.0", 8000))
+        debugpy.wait_for_client()
+    else:
+        uvicorn.run("application.api.main:app", host="0.0.0.0", port=8000, log_level="info")
+
+    #uvicorn", "application.api.main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]

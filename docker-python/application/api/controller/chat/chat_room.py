@@ -105,7 +105,7 @@ class Room:
                     break
                 
                 try:
-                    chat = ChatMessage.parse_raw(chat_json)
+                    # chat = ChatMessage.parse_raw(chat_json)
                     for client in self.__clients.values():
                         await client.send_text(chat_json)
                 except Exception as e:

@@ -102,6 +102,7 @@ namespace ConnectServer
             chatMessage.created_date = time.ToString("yyyyMMdd");
             chatMessage.created_time = time.ToString("HHmmss");
 
+            Debug.Log(chatMessage.ToJson());
             ws.Send(chatMessage.ToJson());
         }
 

@@ -36,6 +36,7 @@ namespace ConnectServer
                     GameManager.User.JsonToModel(Result);
                     GameManager.User.password = (user as User).password;
                     isLogin = true;
+                    DontDestroyOnLoad(GameManager);
                     break;
                 case 400:
                 case 401:
