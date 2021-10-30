@@ -22,7 +22,7 @@ public class RefreshPlay
         };
     }
 
-    [MenuItem("Launcher/GameScene", priority = 0)]
+    [MenuItem("MyEditor/GameScene", priority = 0)]
     public static void OpenGameScene()
     {
         EditorSceneManager.OpenScene("Assets/Scenes/Login.unity", OpenSceneMode.Single);
