@@ -6,12 +6,15 @@ using ConnectServer;
 
 public class GameManager : MonoBehaviour
 {
+    /// <summary>
+    /// User info
+    /// </summary>
     public User User;
 
     // Start is called before the first frame update
     void Start()
     {
-        DontDestroyOnLoad(this);
+
     }
 
     // Update is called once per frame
