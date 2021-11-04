@@ -22,6 +22,11 @@ namespace ConnectServer
             
         }
 
+        /// <summary>
+        /// Connect API server.
+        /// </summary>
+        /// <param name="user"> User info. </param>
+        /// <returns></returns>
         public override IEnumerator Connect(IModelJsonConvert user)
         {
             ErrMsg = string.Empty;
