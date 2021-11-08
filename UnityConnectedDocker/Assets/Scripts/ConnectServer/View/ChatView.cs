@@ -17,6 +17,12 @@ namespace ConnectServer
         private Button sendButton;
 
         /// <summary>
+        /// 
+        /// </summary>
+        [SerializeField]
+        private Button inviteButton;
+
+        /// <summary>
         /// Input Text on chat message.
         /// </summary>
         [SerializeField]
@@ -28,10 +34,18 @@ namespace ConnectServer
         [SerializeField]
         private GameObject sampleMessagePanel;
 
+        [SerializeField]
+        private GameObject invitePopupPanel;
+
         /// <summary>
         /// Manage chat function.
         /// </summary>
         private ChatManager chatManager;
+
+        /// <summary>
+        /// Event on chat.
+        /// </summary>
+        private ChatEvent chatEvent;
 
         // Start is called before the first frame update
         void Start()
@@ -39,12 +53,22 @@ namespace ConnectServer
             chatManager = GameObject.Find("ChatManager").GetComponent<ChatManager>();
 
             sendButton.onClick.AddListener(SendMessage);
+            inviteButton.onClick.AddListener(OnClickInviteButton);
+
+            var popupPanel = invitePopupPanel.GetComponent<PopupPanal>();
+            chatEvent = popupPanel.GetComponentInChildren<ChatEvent>();
+            popupPanel.AddClickOkButtn(chatEvent.InviteMember);
         }
 
         // Update is called once per frame
         void Update()
         {
             ShowChat();
+        }
+
+        private void OnClickInviteButton()
+        {
+            invitePopupPanel.SetActive(true);
         }
 
         /// <summary>
