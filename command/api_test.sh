@@ -5,6 +5,16 @@
 URL=192.168.1.10 #オンプレ
 PORT=8000
 
+# 入力文字によって処理を条件分岐
+echo "0: Local"
+echo "1: On premises"
+read -p "Select environment: " DATA
+case "$DATA" in
+    # Local
+    [0]) URL=127.0.0.1 ; #Local
+esac
+
+
 DATA="{ \
     \"name\": \"string\", \
     \"email\": \"string\", \
@@ -38,50 +48,64 @@ DATA3="{ \
 echo $DATA
 
 USER_TEST_ROUTE1=user/test
-echo "\n"
+echo ""
 echo "$URL:$PORT/$USER_TEST_ROUTE1"
 curl -X POST -H "Content-Type: application/json" -d \
     "$DATA" \
     $URL:$PORT/$USER_TEST_ROUTE1
 
 USER_TEST_ROUTE2=user/signup
-echo "\n"
+echo ""
 echo "$URL:$PORT/$USER_TEST_ROUTE2"
 curl -X POST -H "Content-Type: application/json" -d \
     "$DATA" \
     $URL:$PORT/$USER_TEST_ROUTE2
 
 USER_TEST_ROUTE3=user/login
-echo "\n"
+echo ""
 echo "login"
 curl -X POST -H "Content-Type: application/json" -d \
     "$DATA" \
     $URL:$PORT/$USER_TEST_ROUTE3
 
 USER_TEST_ROUTE3=user/login
-echo "\n"
+echo ""
 echo "email変更"
 curl -X POST -H "Content-Type: application/json" -d \
     "$DATA2" \
     $URL:$PORT/$USER_TEST_ROUTE3
 
 USER_TEST_ROUTE3=user/login
-echo "\n"
+echo ""
 echo "password不一致"
 curl -X POST -H "Content-Type: application/json" -d \
     "$DATA3" \
     $URL:$PORT/$USER_TEST_ROUTE3
 
-echo "\n"
+echo ""
 echo "チャットルーム作成"
 curl -X POST -H "Content-Type: application/json" -d \
     "$DATA" \
     $URL:$PORT/chat/new/test001
 
-echo "\n"
+MEMBER="\"member\": {\
+    \"room_id\": 1,\
+    \"chat_id\": -1,\
+    \"email\": \"test_friend\",\
+    \"update\": \"string\"\
+  }"
+
+echo ""
+echo "メンバー招待"
+curl -X POST -H "Content-Type: application/json" -d \
+    "{$MEMBER , \"user\":$DATA }" \
+    $URL:$PORT/chat/invite
+
+echo ""
 echo "チャットルーム一覧"
 curl -X POST -H "Content-Type: application/json" -d \
     "$DATA" \
     $URL:$PORT/chat/roomlist
 
-echo "\n"
+echo ""
+

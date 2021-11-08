@@ -16,6 +16,7 @@ from typing import List
 from ...db import database, session
 from ...schemas.user import User
 from ...schemas.chatmessage import ChatMessage
+from ...schemas.chatroommember import ChatRoomMember
 from ...schemas.chatroom import ChatRoom
 from ...models.chatrooms import chatrooms
 from ...models.chatroommembers import chatroommembers
@@ -79,7 +80,17 @@ class Room:
             room = await database.fetch_one(query)
             room_list.append(ChatRoom(room_id=room["room_id"], room_name=room["room_name"]))
         return room_list
-
+    
+    @staticmethod
+    async def invite_member(member: ChatRoomMember, user: User, database):
+        user = await login(user=user, database=database)
+        get_query = chatroommembers.select()\
+            .where(chatroommembers.columns.email==user.email and chatroommembers.columns.room_id==member.room_id)
+        my_member = await database.fetch_one(get_query)
+        if my_member is None:
+            raise ApiException("You cannot invite this room.")
+        insert_query = chatroommembers.insert()
+        await database.execute(insert_query, member.dict())
 
     async def join_room(self, ws: WebSocket):
         try:

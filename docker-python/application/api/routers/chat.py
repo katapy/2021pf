@@ -74,9 +74,23 @@ async def create_room(room_name: str, user: User, database: Database = Depends(g
             responses={400: {"model": Message}, 401: {"model": Message}})
 async def create_room(user: User, database: Database = Depends(get_connection)):
     try:
-        # await Room.create(room_name, user=user, database=database)
-        print("get chat room list")
         return await Room.get_room_list(user=user, database=database)
+    except ApiException as e:
+        return e.error_response()
+    except Exception as e:
+        error_handler = HandleError(e)
+        error_handler.write_log()
+        return error_handler.error_response()
+
+# 招待
+@router.post("/invite", \
+    response_model=Message, \
+        summary="Invite member", \
+            responses={400: {"model": Message}, 401: {"model": Message}})
+async def invite_member(member: ChatRoomMember, user: User, database: Database = Depends(get_connection)):
+    try:
+        await Room.invite_member(user=user, member=member, database=database)
+        return jsonable_encoder(Message(message="Success"))
     except ApiException as e:
         return e.error_response()
     except Exception as e:
