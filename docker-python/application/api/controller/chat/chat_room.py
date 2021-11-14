@@ -8,7 +8,7 @@ wscat -c ws://localhost:8000/chat/join/1
 from sqlalchemy.sql.expression import update
 import crud
 import datetime
-
+import json
 from starlette.websockets import WebSocket
 from sqlalchemy.sql import text
 from typing import List
@@ -20,8 +20,10 @@ from ...schemas.chatroommember import ChatRoomMember
 from ...schemas.chatroom import ChatRoom
 from ...models.chatrooms import chatrooms
 from ...models.chatroommembers import chatroommembers
+from ...models.chatmessages import  chatmessages
 from ...errors.api_exception import ApiException
 from ..user import login
+
 
 class Room:
     __room_id: int
@@ -92,7 +94,7 @@ class Room:
         insert_query = chatroommembers.insert()
         await database.execute(insert_query, member.dict())
 
-    async def join_room(self, ws: WebSocket):
+    async def join_room(self, ws: WebSocket, room_id: int):
         try:
             await ws.accept()
 
@@ -109,19 +111,38 @@ class Room:
             # チャット開始！！
             self.__clients[user.email] = ws
             await ws.send_text("Success to join room")
+            
+            # 今までのチャットを送信
+            try:
+                await self.get_room_data(room_id=room_id)
+                get_query = chatmessages.select().where(chatmessages.columns.room_id==self.__room_id)
+                # get_query = chatmessages.select()
+                messages = await database.fetch_all(get_query)
+                for message in messages:
+                    await ws.send_text(json.dumps(dict(message.items())))
+            except Exception as e:
+                print("message error")
+                print(e)
+                await ws.send_text("send error")
+
 
             while True:
                 chat_json = await ws.receive_text()
-                if chat_json == "\q": # \q で退出
+                if chat_json == "quit": # quit で退出
                     break
                 
                 try:
-                    # chat = ChatMessage.parse_raw(chat_json)
                     for client in self.__clients.values():
                         await client.send_text(chat_json)
+                        
+                    # チャットの内容を保存
+                    save_query = chatmessages.insert()
+                    chat = json.loads(chat_json)
+                    chat.pop('chat_id')
+                    await database.execute(save_query, chat)
                 except Exception as e:
                     print("message error")
-                    print(e.message)
+                    print(e)
                     await ws.send_text("send error")
 
         except ApiException as e:
@@ -132,8 +153,10 @@ class Room:
             raise ApiException(e)
 
         finally:
+            pass
             """
             if user is not None:
                 client.pop(user.email)
             """
-            await  ws.close()
+            # self.__clients.pop(user.email)
+            # await ws.close()

@@ -36,7 +36,7 @@ async def websocket_endpoint(ws: WebSocket, room_id: int):
             chat_rooms.append(my_room)
 
         # roomに入る
-        await my_room.join_room(ws=ws)
+        await my_room.join_room(ws=ws, room_id=room_id)
 
     except ApiException as e:
         error_handler = HandleError(e)
