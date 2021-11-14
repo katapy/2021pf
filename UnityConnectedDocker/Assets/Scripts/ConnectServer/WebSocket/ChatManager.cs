@@ -15,16 +15,31 @@ using WebSocketSharp;
 
 namespace ConnectServer
 {
+    /// <summary>
+    /// Manage chat function.
+    /// </summary>
     public class ChatManager : MonoBehaviour
     {
         WebSocketSharp.WebSocket ws = null;
 
+        /// <summary>
+        /// Is connect server.
+        /// </summary>
         public static bool isConnect{get; private set;}
 
+        /// <summary>
+        /// Chat room data table.
+        /// </summary>
         public ChatRoomTable chatRoomTable{get; private set;}
 
+        /// <summary>
+        /// Unread messages.
+        /// </summary>
         public List<ChatMessage> UnreadMessages = new List<ChatMessage>();
 
+        /// <summary>
+        /// Game Manager.
+        /// </summary>
         private GameManager gameManager;
 
         // Start is called before the first frame update
@@ -75,22 +90,35 @@ namespace ConnectServer
             SceneManager.LoadScene("Chat");
         }
 
+        /// <summary>
+        /// Close ws connection when this is delete.
+        /// </summary>
         void OnDestroy()
         {
             // ゲームオブジェクトが削除されたときにWebSocketの接続を閉じる
             if(ws != null)
             {
+                ws.Send("quit");
                 ws.Close();
                 ws = null;
             }
         }
 
+        /// <summary>
+        /// This method start when open WS.
+        /// </summary>
         private void OnOpen()
         {
             Debug.Log("WebSocket Open");
             ws.Send(gameManager.User.ToJson());
         }
 
+        /// <summary>
+        /// Send message.
+        /// </summary>
+        /// <param name="message">
+        /// message.
+        /// </param>
         public void Send(string message)
         {
             var chatMessage = new ChatMessage();
@@ -106,6 +134,11 @@ namespace ConnectServer
             ws.Send(chatMessage.ToJson());
         }
 
+        /// <summary>
+        /// Get message.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GetMessage(object sender, MessageEventArgs e)
         {
             var data = e.Data;
@@ -122,17 +155,5 @@ namespace ConnectServer
                 Debug.LogWarning($"Input NO message : {data}");
             }
         }
-
-        /*
-        public void AddActionOnMessage(EventHandler<MessageEventArgs> action)
-        {
-            ws.OnMessage += action;
-        }
-
-        private void test_method(object sender, EventArgs e)
-        {
-            
-        }
-        */
     }
 }
