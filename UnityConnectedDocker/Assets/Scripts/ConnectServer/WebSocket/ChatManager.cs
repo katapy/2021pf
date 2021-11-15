@@ -102,6 +102,8 @@ namespace ConnectServer
                 ws.Close();
                 ws = null;
             }
+
+            SceneManager.LoadScene("ChatRoomSelect");
         }
 
         /// <summary>

@@ -23,6 +23,6 @@ public class ChangeScene : MonoBehaviour
 
     void onClickButton()
     {
-        SceneManager.LoadScene(button.name.Substring(0, button.name.Length - 6));
+        SceneManager.LoadScene(button.name.Substring(0, button.name.Length - 11));
     }
 }

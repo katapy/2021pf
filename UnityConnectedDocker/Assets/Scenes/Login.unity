@@ -1266,7 +1266,7 @@ GameObject:
   - component: {fileID: 1182650670}
   - component: {fileID: 1182650669}
   m_Layer: 5
-  m_Name: SignupButton
+  m_Name: SignupSceneButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

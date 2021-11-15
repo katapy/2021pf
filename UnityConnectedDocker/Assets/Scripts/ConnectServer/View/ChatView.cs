@@ -23,6 +23,12 @@ namespace ConnectServer
         private Button inviteButton;
 
         /// <summary>
+        /// Close chat button.
+        /// </summary>
+        [SerializeField]
+        private Button closeButton;
+
+        /// <summary>
         /// Input Text on chat message.
         /// </summary>
         [SerializeField]
@@ -34,6 +40,9 @@ namespace ConnectServer
         [SerializeField]
         private GameObject sampleMessagePanel;
 
+        /// <summary>
+        /// popup Panel for inveite friend.
+        /// </summary>
         [SerializeField]
         private GameObject invitePopupPanel;
 
@@ -54,6 +63,7 @@ namespace ConnectServer
 
             sendButton.onClick.AddListener(SendMessage);
             inviteButton.onClick.AddListener(OnClickInviteButton);
+            closeButton.onClick.AddListener(() => Destroy(chatManager));
 
             var popupPanel = invitePopupPanel.GetComponent<PopupPanal>();
             chatEvent = popupPanel.GetComponentInChildren<ChatEvent>();
