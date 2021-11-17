@@ -3,7 +3,8 @@
 # rootフォルダまで移動
 cd ../..
 
-URL=https://github.com/katapy/2021pf.git
+# URL=https://github.com/katapy/2021pf.git
+URL=git@github.com:katapy/2021pf.git
 BRANCH=`git rev-parse --abbrev-ref HEAD`
 
 # キャッシュの削除(ファイルを削除した時に使う)
