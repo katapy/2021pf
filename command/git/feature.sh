@@ -6,7 +6,7 @@
 # rootフォルダまで移動
 cd ../..
 
-URL=https://github.com/katapy-note/2021pf.git
+URL=git@github.com:katapy/2021pf.git
 
 # リモートが設定されていなければ追加する
 ORIGIN=`git remote`

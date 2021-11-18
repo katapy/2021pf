@@ -3,7 +3,6 @@
 # rootフォルダまで移動
 cd ../..
 
-# URL=https://github.com/katapy/2021pf.git
 URL=git@github.com:katapy/2021pf.git
 BRANCH=`git rev-parse --abbrev-ref HEAD`
 
