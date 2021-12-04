@@ -2,7 +2,12 @@
 
 ## 概要
 Unity ✖️ Python (Docker, fastAPI)で作成したシンプルなチャットアプリ
+
+### 構成図
 ![構成図](https://github.com/katapy/2021pf/blob/develop/docs/PlantUML/Diagram/Diagram.png)
+
+### 簡易クラス図
+![簡易クラス図](https://github.com/katapy/2021pf/blob/develop/docs/PlantUML/SimpleClass/SimpleClass.png)
 
 ## 環境
 ### 開発環境
