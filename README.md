@@ -75,13 +75,32 @@ docker-compose version 1.29.2, build unknown
 ```
 
 ## 機能一覧
+・ログイン
+・サインイン
+・リアルタイムチャット
+・チャットルーム作成
+・チャットルーム招待
 
 ## 機能一覧(開発補助)
 ### command(bash script)
+・api_test : WebAPIをcurlコマンドで呼び出し、簡易テストを行います。
+・connect_db : Docker上のデータベースに接続し、SQLを実行します。
+・create_key : 公開鍵作成ファイル
+・delete : Dockerを削除します。
+・log : Dockerでのアプリのログを確認します。
+・ssh_linux : LinuxにDocker構築に必要なファイルを転送します。
+・start : Dockerを起動します。
 
 ### docs(Python)
+・ORMap用のPythonスクリプト自動生成
+・API連携用のPython及びC#スクリプト自動生成
 
 ## 課題
-### 大きな問題
+### 大きな課題
+・wss未対応(セキュリティ上の問題)
+・オンプレミスのみ(クラウド未対応)
 
-### 細かい問題
+### 細かい課題
+・キャラクターのサイズ、アニメーションの調整
+・チャット機能にてトークを行ったユーザ名表示
+・既読機能の追加
