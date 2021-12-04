@@ -5,6 +5,12 @@
 ## 概要
 Unity ✖️ Python (Docker, fastAPI)で作成したシンプルなチャットアプリ
 
+### 構成図
+![構成図](https://github.com/katapy/2021pf/blob/develop/docs/PlantUML/Diagram/Diagram.png)
+
+### 簡易クラス図
+![簡易クラス図](https://github.com/katapy/2021pf/blob/develop/docs/PlantUML/SimpleClass/SimpleClass.png)
+
 ## 環境
 ### 開発環境
 MacBook Air (Retina, 13-inch, 2018)
@@ -79,6 +85,13 @@ docker-compose version 1.29.2, build unknown
 
 ## 機能一覧(開発補助)
 ### command(bash script)
+・api_test : WebAPIをcurlコマンドで呼び出し、簡易テストを行います。
+・connect_db : Docker上のデータベースに接続し、SQLを実行します。
+・create_key : 公開鍵作成ファイル
+・delete : Dockerを削除します。
+・log : Dockerでのアプリのログを確認します。
+・ssh_linux : LinuxにDocker構築に必要なファイルを転送します。
+・start : Dockerを起動します。
 
 ### docs(Python)
 ・ORMap用のPythonスクリプト自動生成

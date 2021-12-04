@@ -1,0 +1,25 @@
+@startuml SimpleClass
+title "簡易クラス図"
+package python as "Python" {
+    class controller
+    class route extends controller
+    entity model
+    entity schema
+}
+package csharp as "C#" {
+    interface IModelJsonConverter
+    class Controller extends IModelJsonConverter
+    class View extends Controller
+    entity Model implements IModelJsonConverter
+}
+database psql as "PSQL" {
+}
+Controller <-[#green,dotted]-> route
+note right on link : "https, ws通信"
+controller <-[#green,dotted]-> psql
+note right on link : "DB連携"
+Model - View #blue
+schema - route #blue
+schema - controller #blue
+model - controller #blue
+@enduml

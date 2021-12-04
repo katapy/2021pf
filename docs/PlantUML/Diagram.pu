@@ -1,0 +1,33 @@
+@startuml Diagram
+!define ICONURL https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/v2.0.0
+!includeurl ICONURL/common.puml
+!includeurl ICONURL/font-awesome/apple.puml
+!includeurl ICONURL/devicons/docker.puml
+!includeurl ICONURL/devicons/python.puml
+title 構成図
+node linux as "Server(Linux)" {
+    DEV_DOCKER(docker) #White{
+        database psql as "PostgreSQL"
+        frame fastAPI
+    }
+}
+FA_APPLE(apple) #White {
+    frame Unity
+}
+node develop as "Develop(Mac)" {
+    rectangle bash as "Command(bash)"
+    rectangle docs as "Docs"{
+        DEV_PYTHON(python){
+            frame make_table
+        }
+    }
+}
+actor user as "User"
+user --> Unity : 操作
+Unity -- fastAPI : 通信
+make_table --> fastAPI : 自動生成
+make_table --> Unity : 自動生成
+fastAPI -> psql : テーブル定義
+bash -> linux : 設定
+
+@enduml
